@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5432
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data/pgdata"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+  nextcloud:
+    image: nextcloud
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    volumes:
+      - "./html:/var/www/html"
+    restart: always
+    environment:
+      POSTGRES_DB: 'nextcloud'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_HOST: 'db'
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: 11111111
