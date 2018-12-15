@@ -5,7 +5,7 @@ services:
     image: postgres
     restart: always
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - "./pgdata:/var/lib/postgresql/data/pgdata"
     environment:
@@ -20,6 +20,7 @@ services:
       - db
     volumes:
       - "./html:/var/www/html"
+      - "/media/piusb/data:/var/www/html/data"
     restart: always
     environment:
       POSTGRES_DB: 'nextcloud'
